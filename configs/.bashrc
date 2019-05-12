@@ -4,7 +4,7 @@
 # for examples
 
 drupal_root=${DRUPAL_ROOT:-docroot}
-export PATH=$PATH:$HOME/.composer/vendor/bin
+export PATH=$PATH:$HOME/.composer/vendor/bin:/usr/sbin/
 export DRUSH_LAUNCHER_FALLBACK=/usr/local/drush/global/bin/drush
 if [ -f /tokaido/config/.env ]; then
     source /tokaido/config/.env

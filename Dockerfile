@@ -6,7 +6,6 @@ RUN apt-get update  \
     && apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
         openssh-server \
         multitail \
-        sendmail \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
@@ -45,17 +44,13 @@ RUN apt-get update  \
 COPY configs/sshd_config /etc/ssh/sshd_config
 COPY configs/motd.sh /etc/motd.sh
 COPY scripts/show-logs.sh /usr/local/bin/show-logs.sh
-COPY scripts/tok-tips.sh /usr/local/bin/tok-tips.sh
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod 700 /usr/local/bin/entrypoint.sh \
     && chmod 755 /etc/motd.sh  \
     && rm /etc/motd \
     && chmod 770 /usr/local/bin/show-logs.sh \
     && chown tok:web /usr/local/bin/show-logs.sh \
-    && ln -s /usr/local/bin/show-logs.sh /usr/local/bin/show-logs \
-    && chmod 770 /usr/local/bin/tok-tips.sh \
-    && ln -s /usr/local/bin/tok-tips.sh /usr/local/bin/tok-tips \
-    && chown tok:web /usr/local/bin/tok-tips.sh
+    && ln -s /usr/local/bin/show-logs.sh /usr/local/bin/show-logs
 
 ENV SHELL /bin/bash
 EXPOSE 22

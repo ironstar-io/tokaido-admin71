@@ -5,7 +5,7 @@ if [[ $(tput colors) == 256 ]]; then
   blue=$(tput setaf 32)
   red=$(tput setaf 124)
   cyan=$(tput setaf 6)
-  reset=$(tput sgr0)  
+  reset=$(tput sgr0)
 else
   green=$(tput setaf 2)
   blue=$(tput setaf 4)
@@ -34,11 +34,11 @@ cat <<"EOF"
  (_>        ,-------.                     ,-------.  |
   `-._____.'(_)`='(_)\_7___7___7___7__7_.'(_)`='(_)\_/ hjw
 
-        __________  __ __ ___    ________  ____ 
+        __________  __ __ ___    ________  ____
        /_  __/ __ \/ //_//   |  /  _/ __ \/ __ \
         / / / / / / ,<  / /| |  / // / / / / / /
-       / / / /_/ / /| |/ ___ |_/ // /_/ / /_/ / 
-      /_/  \____/_/ |_/_/  |_/___/_____/\____/ 
+       / / / /_/ / /| |/ ___ |_/ // /_/ / /_/ /
+      /_/  \____/_/ |_/_/  |_/___/_____/\____/
 
 EOF
 echo "${reset}"
@@ -48,11 +48,11 @@ echo "      Drush Version    : $drush_version"
 
 if [[ "$database_status" == "Connected" ]]; then
   echo "      Database Status  : ${green}OK${reset}"
-else 
+else
   echo "      Database Status  : ${red}Failed${reset}"
 fi
 
-if ! [[ -z "$tok_provider" ]]; then  
+if ! [[ -z "$tok_provider" ]]; then
   cat <<"EOF"
 
 UNAUTHORISED ACCESS TO THIS SYSTEM IS PROHIBITED
@@ -65,27 +65,21 @@ logged and monitored.
 ---
 
 The Tokaido Drush container is ephemeral. Each time you deploy your
-application, anything you save here will be lost forever. 
+application, anything you save here will be lost.
 
-Only the Drupal Public and Private Files directories are writeable. 
+Only the Drupal Public and Private Files directories are writeable.
 
 EOF
 
-else   
+else
   cat <<"EOF"
 
-In Tokaido, the /tokaido/site folder is synchronised between this environment
-and your local system. Content not saved in the /tokaido/site may be lost
-each time the Tokaido environment is restarted. 
-
-Note that since Tokaido 1.2.0, database content is saved in a special Docker
-volume so database content is persistent. 
+The /tokaido/site folder is linked to your project directory on your host system.
+Content not saved in the /tokaido/site may be lost each time the Tokaido
+environment is restarted.
 
 Be sure to check out https://docs.tokaido.io for help, or come and talk to
 us in the #Tokaido channel in the official Drupal Slack: https://www.drupal.org/slack
 
 EOF
-echo -e "${cyan}$(/usr/local/bin/tok-tips.sh)${reset}\n"
 fi
-
-
